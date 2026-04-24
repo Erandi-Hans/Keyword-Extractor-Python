@@ -22,7 +22,7 @@ if uploaded_file is not None:
     
     if text:
         st.subheader("Extracted Keywords:")
-        keywords = kw_model.extract_keywords(text, keyphrase_ngram_range=(1, 1), stop_words='english', top_n=5)
+        keywords = kw_model.extract_keywords(text, keyphrase_ngram_range=(1, 1), stop_words='english', top_n=10)
         
         for kw in keywords:
             st.success(f"Keyword: **{kw[0]}** (Accuracy: {round(kw[1], 2)})")
