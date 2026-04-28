@@ -3,7 +3,7 @@ import PyPDF2
 import yake
 
 def extract_keywords_from_pdf(pdf_file):
-    # 1. Read PDF content
+
     pdf_reader = PyPDF2.PdfReader(pdf_file)
     full_text = ""
     for page in pdf_reader.pages:
@@ -17,7 +17,7 @@ def extract_keywords_from_pdf(pdf_file):
     # 2. Configure YAKE!
     # n = max words in a phrase (1 for single words)
     # top = number of keywords to extract
-    kw_extractor = yake.KeywordExtractor(lan="en", n=1, dedupLim=0.9, top=10, features=None)
+    kw_extractor = yake.KeywordExtractor(lan="en", n=2, dedupLim=0.9, top=100, features=None)
     
     # 3. Extract keywords
     keywords = kw_extractor.extract_keywords(full_text)
