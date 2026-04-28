@@ -14,16 +14,13 @@ def extract_keywords_from_pdf(pdf_file):
     if not full_text.strip():
         return None
 
-    # 2. Configure YAKE!
-    # n = max words in a phrase (1 for single words)
-    # top = number of keywords to extract
     kw_extractor = yake.KeywordExtractor(lan="en", n=2, dedupLim=0.9, top=100, features=None)
     
-    # 3. Extract keywords
+ 
     keywords = kw_extractor.extract_keywords(full_text)
     return keywords
 
-# Streamlit UI
+
 st.set_page_config(page_title="YAKE! Keyword Extractor")
 st.title("PDF Keyword Extractor (YAKE!)")
 
@@ -38,7 +35,7 @@ if uploaded_file is not None:
             st.write("Note: Lower score means higher relevance in YAKE!")
             
             for kw, score in results:
-                # Using columns to display keyword and score neatly
+                
                 col1, col2 = st.columns([2, 1])
                 with col1:
                     st.info(f"**{kw}**")
