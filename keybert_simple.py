@@ -1,6 +1,7 @@
 import streamlit as st
 import PyPDF2
 from keybert import KeyBERT
+import time
 
 @st.cache_resource
 def load_model():
@@ -22,7 +23,18 @@ if uploaded_file is not None:
     
     if text:
         st.subheader("Extracted Keywords:")
+        
+        # Start timer
+        start_time = time.perf_counter()
+        
         keywords = kw_model.extract_keywords(text, keyphrase_ngram_range=(1, 1), stop_words='english', top_n=10)
+        
+        # End timer
+        end_time = time.perf_counter()
+        execution_time = end_time - start_time
+        
+        # Display execution time
+        st.info(f"Execution Time: {execution_time:.4f} seconds")
         
         for kw in keywords:
             st.success(f"Keyword: **{kw[0]}** (Accuracy: {round(kw[1], 2)})")

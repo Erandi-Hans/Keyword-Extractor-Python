@@ -47,9 +47,9 @@ if uploaded_file is not None:
 
 
  if uploaded_file is not None:
-    start_time = time.time() # ආරම්භක කාලය
+    start_time = time.time() 
     results = extract_keywords_from_pdf(uploaded_file)
-    end_time = time.time() # අවසාන කාලය
+    end_time = time.time() 
     
     execution_time = end_time - start_time
     st.write(f"⏱️ **Execution Time:** {execution_time:.4f} seconds")         
