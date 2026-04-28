@@ -1,6 +1,7 @@
 import streamlit as st
 import PyPDF2
 import yake
+import time
 
 def extract_keywords_from_pdf(pdf_file):
 
@@ -43,3 +44,13 @@ if uploaded_file is not None:
                     st.write(f"Score: `{round(score, 4)}`")
         else:
             st.error("Could not extract text from this PDF. Please check the file.")
+
+
+ if uploaded_file is not None:
+    start_time = time.time() # ආරම්භක කාලය
+    results = extract_keywords_from_pdf(uploaded_file)
+    end_time = time.time() # අවසාන කාලය
+    
+    execution_time = end_time - start_time
+    st.write(f"⏱️ **Execution Time:** {execution_time:.4f} seconds")         
+

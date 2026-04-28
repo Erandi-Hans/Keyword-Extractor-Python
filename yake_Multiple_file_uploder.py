@@ -20,7 +20,7 @@ def extract_keywords_from_pdf(pdf_file):
 st.set_page_config(page_title="YAKE! Keyword Extractor")
 st.title("PDF Keyword Extractor (YAKE!)")
 
-# Enabled multiple file uploads
+
 uploaded_files = st.file_uploader("Upload your PDF files", type=["pdf"], accept_multiple_files=True)
 
 if uploaded_files:
