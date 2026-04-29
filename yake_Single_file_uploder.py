@@ -4,7 +4,6 @@ import yake
 import time
 
 def extract_keywords_from_pdf(pdf_file):
-
     pdf_reader = PyPDF2.PdfReader(pdf_file)
     full_text = ""
     for page in pdf_reader.pages:
@@ -15,12 +14,9 @@ def extract_keywords_from_pdf(pdf_file):
     if not full_text.strip():
         return None
 
-    kw_extractor = yake.KeywordExtractor(lan="en", n=2, dedupLim=0.9, top=100, features=None)
-    
- 
+    kw_extractor = yake.KeywordExtractor(lan="en", n=2, dedupLim=0.9, top=10, features=None)
     keywords = kw_extractor.extract_keywords(full_text)
     return keywords
-
 
 st.set_page_config(page_title="YAKE! Keyword Extractor")
 st.title("PDF Keyword Extractor (YAKE!)")
@@ -29,14 +25,18 @@ uploaded_file = st.file_uploader("Upload your 2-page PDF", type=["pdf"])
 
 if uploaded_file is not None:
     with st.spinner('Extracting keywords...'):
+        start_time = time.perf_counter()
         results = extract_keywords_from_pdf(uploaded_file)
+        end_time = time.perf_counter()
+        
+        execution_time = end_time - start_time
         
         if results:
+            st.write(f"⏱️ **Execution Time:** {execution_time:.4f} seconds")
             st.subheader("Top Extracted Keywords:")
             st.write("Note: Lower score means higher relevance in YAKE!")
             
             for kw, score in results:
-                
                 col1, col2 = st.columns([2, 1])
                 with col1:
                     st.info(f"**{kw}**")
@@ -44,13 +44,3 @@ if uploaded_file is not None:
                     st.write(f"Score: `{round(score, 4)}`")
         else:
             st.error("Could not extract text from this PDF. Please check the file.")
-
-
- if uploaded_file is not None:
-    start_time = time.time() 
-    results = extract_keywords_from_pdf(uploaded_file)
-    end_time = time.time() 
-    
-    execution_time = end_time - start_time
-    st.write(f"⏱️ **Execution Time:** {execution_time:.4f} seconds")         
-
